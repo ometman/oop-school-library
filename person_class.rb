@@ -1,11 +1,13 @@
 class Person
-  attri_ reader :id, :name, :age
-  attri_writer :name, :age
-  def initialize(_name, age, _parent_permission)
+
+  attr_reader :id, :name, :age
+  attr_writer :name, :age
+
+  def initialize(id, name = 'UNKNOWN', age, parent_permission = true)
     @id = id
-    @name = 'UNKNOWN'
+    @name = name
     @age = age
-    @parent_permission = true
+    @parent_permission = parent_permission
   end
 
   def of_age?
