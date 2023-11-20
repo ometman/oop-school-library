@@ -1,19 +1,15 @@
-class Person
-    attri_ reader :id, :name, :age
-    attri_writer :name, :age
-    def initialize(_name, age, _parent_permission)
-      @id = id
-      @name = 'UNKNOWN'
-      @age = age
-      @parent_permission = true
+require_relative 'person_class'
+
+class Teacher < Person
+
+    attr_reader :specialization
+
+    def initialize(id, age, name = "Unknown", specialization)
+      super(id, name, age)
+      @specialization = specialization
     end
   
-    def of_age?
-      @age >= 18
+    def can_use_services
+      true
     end
-  
-    def can_use_services?
-      of_age? || parent_permission
-    end
-  end
-  
+end
