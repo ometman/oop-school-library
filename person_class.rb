@@ -1,4 +1,6 @@
-class Person
+require_relative 'nameable'
+
+class Person < Nameable
   attr_accessor :id, :name, :age
 
   def initialize(age, name: 'UNKNOWN', parent_permission: true)
@@ -20,3 +22,6 @@ class Person
     of_age? || @parent_permission
   end
 end
+
+# person = Person.new()
+# puts person
