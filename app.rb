@@ -45,7 +45,7 @@ class App
     when 'teacher'
       print 'Specialization: '
       specialization = gets.chomp
-      person = Teacher.new(age, name, specialization)
+      person = Teacher.new(age, specialization, name)
     when 'student'
       print "Has parent's permission? [Y/N]: "
       parent_permission = gets.chomp.downcase == 'y'
