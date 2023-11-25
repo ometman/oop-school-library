@@ -58,4 +58,4 @@ def main
 end
 
 # Invoke main method
-main if __FILE__ == $app
+main if __FILE__ == $PROGRAM_NAME

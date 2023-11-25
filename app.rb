@@ -14,23 +14,39 @@ class App
   end
 
   def list_books
+    if @books.length.zero? 
+      puts "No books available"
+    else
       puts "Available Books:"
-      @books.each_with_index do |book, index|
+        @books.each_with_index do |book, index|
         puts "#{index + 1}. #{book.title} by #{book.author}"
       end
+    end
   end
 
   def list_people
+    if @people.length.zero? 
+      puts "Currently, no person has been added"
+    else
       puts "All People:"
       @people.each do |person, index|
         puts "#{index + 1}. #{person.name}"
       end
+    end
   end
   
-  def create_person(age, name, type)
+  def create_person(name, type)
     if type.downcase == 'teacher'
+      puts "What is the teacher's age"
+      age = gets.chomp_i
+      puts "Enter teacher's specialization"
+      specialization = gets.chomp
       person = Teacher.new(age, specialization, name)
     elsif type.downcase == 'student'
+      puts "What is the student's age"
+      age = gets.chomp_i
+      puts "Enter student's classroom"
+      classroom = gets.chomp
       person = Student.new(age, classroom, name)
     else
       puts "Invalid person type."
@@ -79,30 +95,5 @@ class App
     end
   end
 end
-
-app = App.new
-
-# List all books initial.
-puts app.list_books
-
-# List all people.
-puts app.list_people
-
-# Create a person (teacher or student, not a plain Person).
-puts app.create_person(34, 'Andy Van', 'teacher')
-# list people after adding a person
-puts app.list_people 
-
-# Create a book.
-puts app.create_book('Understanding Ruby Classes', 'Ometman')
-# list book after adding
-puts app.list_books 
-
-# Create a rental.
-puts app.create_rental(12-12-2023, 1, 1)
-
-
-# List all rentals for a given person id.
-puts app.list_rentals(1)
 
 
