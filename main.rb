@@ -4,14 +4,16 @@ def main
   app = App.new
 
   loop do
-    puts "\nChoose an option:"
+    puts "\nWelcome to School Library App!"
+    puts "\n"
+    puts "\nPlease choose an option by entering a number:"
     puts "1. List all books"
     puts "2. List all people"
     puts "3. Create a person"
     puts "4. Create a book"
     puts "5. Create a rental"
-    puts "6. List rentals for a person"
-    puts "7. Quit"
+    puts "6. List rentals for a given person id"
+    puts "7. Exit"
 
     print "Enter your choice: "
     choice = gets.chomp.to_i
@@ -22,32 +24,27 @@ def main
     when 2
       app.list_people
     when 3
-      print "Enter name of person: "
-      name = gets.chomp
-      print "Enter person type (teacher/student): "
-      type = gets.chomp.downcase
-      app.create_person(name, type)
+      print "Do you want to create a student (1) or teacher (2) [input the number]: "
+      input = gets.chomp.to_i
+      if input == 1
+        app.create_person('student')
+      elsif input == 2
+        app.create_person('teacher')
+      else
+        puts "Invalid input. Please enter either 1 for student or 2 for teacher."
+      end    
     when 4
-      print "Enter book's title: "
+      print "Title: "
       title = gets.chomp
-      print "Enter book's author: "
+      print "Author: "
       author = gets.chomp
       app.create_book(title, author)
     when 5
-      print "Enter rental date (YYYY-MM-DD): "
-      date = gets.chomp
-      app.list_books
-      print "Enter book index: "
-      book_index = gets.chomp.to_i
-      app.list_people
-      print "Enter person index: "
-      person_index = gets.chomp.to_i
-      app.create_rental(date, book_index, person_index)
+      app.create_rental
     when 6
-      app.list_people
-      print "Enter index of person to list rentals: "
-      person_index = gets.chomp.to_i
-      app.list_rentals_for_person(person_index)
+      print "ID of Person: "
+      id = gets.chomp.to_i
+      app.list_rentals_for_person(id)
     when 7
       puts "Exiting the app..."
       break

@@ -15,11 +15,11 @@ class App
 
   def list_books
     if @books.length.zero? 
-      puts "No books available"
+      puts "Sorry! No books available"
     else
       puts "Available Books:"
-        @books.each_with_index do |book, index|
-        puts "#{index + 1}. #{book.title} by #{book.author}"
+        @books.each_with_index do |book|
+        puts "Title: \"#{book.title}\", Author: #{book.author}"
       end
     end
   end
@@ -29,69 +29,92 @@ class App
       puts "Currently, no person has been added"
     else
       puts "All People:"
-      @people.each do |person, index|
+      @people.each_with_index do |person, index|
         puts "#{index + 1}. #{person.name}"
       end
     end
   end
   
-  def create_person(name, type)
+  def create_person(type)
     if type.downcase == 'teacher'
-      puts "What is the teacher's age"
+      print "Age: "
       age = gets.chomp.to_i
-      puts "Enter teacher's specialization"
+      print "Name: "
+      name = gets.chomp
+      print "Specialization: "
       specialization = gets.chomp
-      person = Teacher.new(age, specialization, name)
+      person = Teacher.new(age, name, specialization)
     elsif type.downcase == 'student'
-      puts "What is the student's age"
+      print "Age: "
       age = gets.chomp.to_i
-      puts "Enter student's classroom"
-      classroom = gets.chomp
-      person = Student.new(age, classroom, name)
+      print "Name: "
+      name = gets.chomp
+      print "Has parent's permission? [Y/N]:"
+      permission = gets.chomp
+      parent_permission = permission.downcase == 'y' ? true : false
+      person = Student.new(age, name,  parent_permission)
     else
-      puts "Invalid person type."
+      puts "Invalid input."
       return
     end
     @people << person
-    puts "#{type.capitalize} '#{name}' created."
-  end
+    puts "Person(#{type.capitalize}) '#{name}' created successfully."
+  end  
   
   def create_book(title, author)
     book = Book.new(title, author)
     @books << book
-    puts "New book: '#{title}' by #{author} created."
+    puts "New book: '#{title}' by #{author} created successfully."
   end
 
-  def create_rental(date, book_index, person_index)
-    book = @books[book_index - 1]
-    person = @people[person_index - 1]
-
-    if book.nil? || person.nil?
-      puts "Invalid book or person index."
-      return
+  def create_rental
+    book_index = nil
+    person_index = nil
+    book = nil
+    person = nil
+    date = nil
+    
+    puts "Select a book from the following list by number"
+      @books.each_with_index do |book, index|
+        puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+      end
+    book_index = gets.chomp.to_i
+    book = @books[book_index]
+    
+    puts "Select a person from the following list by number (not id)"
+    @people.each_with_index do |person, index|
+      person_type = person.is_a?(Student) ? 'Student' : 'Teacher'
+      generated_id = person.id
+      age = person.age if person.respond_to?(:age)
+      puts "#{index}) [#{person_type}], Name: #{person.name}, ID: #{generated_id}, Age: #{age}"
     end
+    person_index = gets.chomp.to_i
+    person = @people[person_index]
+  
+    print "Date (YYYY-MM-DD): "
+    date = gets.chomp
 
     rental = Rental.new(date, book, person)
     @rentals << rental
-    puts "Rental created for '#{person.name}' on '#{book.title}' (#{date})."
+    puts "Rental created successfully"
   end
 
-  def list_rentals_for_person(person_index)
-    person = @people[person_index - 1]
+  def list_rentals_for_person(person_id)
+    person = @people[person_id]
     if person.nil?
-      puts "Invalid person index."
+      puts "Sorry, no person has that Id."
       return
     end
 
     person_rentals = @rentals.select { |rental| rental.person == person }
     if person_rentals.empty?
-      puts "No rentals found for '#{person.name}'."
+      puts "No rentals found"
       return
     end
 
-    puts "All rentals for '#{person.name}':"
+    puts "Rentals: "
     person_rentals.each do |rental|
-      puts "- #{rental.book.title} (#{rental.date})"
+      puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
     end
   end
 end
