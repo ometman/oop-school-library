@@ -92,7 +92,7 @@ class App
   end
 
   def list_rentals_for_person(person_id)
-    person = @people[person_id]
+    person = @people.find { |person| person.id == person_id }
     if person.nil?
       puts 'Sorry, no person has that Id.'
       return
