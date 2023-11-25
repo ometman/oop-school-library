@@ -38,13 +38,13 @@ class App
   def create_person(name, type)
     if type.downcase == 'teacher'
       puts "What is the teacher's age"
-      age = gets.chomp_i
+      age = gets.chomp.to_i
       puts "Enter teacher's specialization"
       specialization = gets.chomp
       person = Teacher.new(age, specialization, name)
     elsif type.downcase == 'student'
       puts "What is the student's age"
-      age = gets.chomp_i
+      age = gets.chomp.to_i
       puts "Enter student's classroom"
       classroom = gets.chomp
       person = Student.new(age, classroom, name)
