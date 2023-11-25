@@ -8,59 +8,57 @@ class App
   attr_accessor :book, :rental, :people
 
   def initialize
-      @books = []
-      @rentals = []
-      @people = []
+    @books = []
+    @rentals = []
+    @people = []
   end
 
   def list_books
-    if @books.length.zero? 
-      puts "Sorry! No books available"
+    if @books.empty?
+      puts 'Sorry! No books available'
     else
-      puts "Available Books:"
-        @books.each_with_index do |book|
+      puts 'Available Books:'
+      @books.each do |book|
         puts "Title: \"#{book.title}\", Author: #{book.author}"
       end
     end
   end
 
   def list_people
-    if @people.length.zero? 
-      puts "Currently, no person has been added"
+    if @people.empty?
+      puts 'Currently, no person has been added'
     else
-      puts "All People:"
+      puts 'All People:'
       @people.each_with_index do |person, index|
         puts "#{index + 1}. #{person.name}"
       end
     end
   end
-  
+
   def create_person(type)
-    if type.downcase == 'teacher'
-      print "Age: "
-      age = gets.chomp.to_i
-      print "Name: "
-      name = gets.chomp
-      print "Specialization: "
+    print 'Age: '
+    age = gets.chomp.to_i
+    print 'Name: '
+    name = gets.chomp
+
+    case type.downcase
+    when 'teacher'
+      print 'Specialization: '
       specialization = gets.chomp
       person = Teacher.new(age, name, specialization)
-    elsif type.downcase == 'student'
-      print "Age: "
-      age = gets.chomp.to_i
-      print "Name: "
-      name = gets.chomp
-      print "Has parent's permission? [Y/N]:"
-      permission = gets.chomp
-      parent_permission = permission.downcase == 'y' ? true : false
-      person = Student.new(age, name,  parent_permission)
+    when 'student'
+      print "Has parent's permission? [Y/N]: "
+      parent_permission = gets.chomp.downcase == 'y'
+      person = Student.new(age, name, parent_permission)
     else
-      puts "Invalid input."
+      puts 'Invalid input.'
       return
     end
+
     @people << person
     puts "Person(#{type.capitalize}) '#{name}' created successfully."
-  end  
-  
+  end
+
   def create_book(title, author)
     book = Book.new(title, author)
     @books << book
@@ -68,20 +66,14 @@ class App
   end
 
   def create_rental
-    book_index = nil
-    person_index = nil
-    book = nil
-    person = nil
-    date = nil
-    
-    puts "Select a book from the following list by number"
-      @books.each_with_index do |book, index|
-        puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
-      end
+    puts 'Select a book from the following list by number'
+    @books.each_with_index do |book, index|
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
     book_index = gets.chomp.to_i
     book = @books[book_index]
-    
-    puts "Select a person from the following list by number (not id)"
+
+    puts 'Select a person from the following list by number (not id)'
     @people.each_with_index do |person, index|
       person_type = person.is_a?(Student) ? 'Student' : 'Teacher'
       generated_id = person.id
@@ -90,33 +82,31 @@ class App
     end
     person_index = gets.chomp.to_i
     person = @people[person_index]
-  
-    print "Date (YYYY-MM-DD): "
+
+    print 'Date (YYYY-MM-DD): '
     date = gets.chomp
 
     rental = Rental.new(date, book, person)
     @rentals << rental
-    puts "Rental created successfully"
+    puts 'Rental created successfully'
   end
 
   def list_rentals_for_person(person_id)
     person = @people[person_id]
     if person.nil?
-      puts "Sorry, no person has that Id."
+      puts 'Sorry, no person has that Id.'
       return
     end
 
     person_rentals = @rentals.select { |rental| rental.person == person }
     if person_rentals.empty?
-      puts "No rentals found"
+      puts 'No rentals found'
       return
     end
 
-    puts "Rentals: "
+    puts 'Rentals: '
     person_rentals.each do |rental|
       puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
     end
   end
 end
-
-
