@@ -1,4 +1,6 @@
 require_relative 'app'
+require_relative 'student'
+require_relative 'teacher'
 require_relative 'menu'
 require_relative 'actions'
 
