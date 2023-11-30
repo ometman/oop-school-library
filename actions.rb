@@ -13,7 +13,7 @@ def handle_choice(choice, app)
   when 6
     list_rentals_for_person(app)
   when 7
-    puts 'Exiting the app...'
+    puts 'Exiting app...'
     return true
   else
     puts 'Invalid choice. Please choose a number between 1 and 7.'
