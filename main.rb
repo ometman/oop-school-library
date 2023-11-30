@@ -9,11 +9,12 @@ require 'json'
 app = App.new
 
 def save_library_data(filename, data)
-  File.open(filename, 'w') { |file| file.write(JSON.generate(data))}
+  File.write(filename, JSON.generate(data))
 end
 
 def load_book_data(filename)
   return [] unless File.exist?(filename)
+
   # JSON.parse(File.read(filename))
   book_data = JSON.parse(File.read(filename))
   book_data.map { |book| Book.new(book['title'], book['author']) }
@@ -21,6 +22,7 @@ end
 
 def load_people_data(filename)
   return [] unless File.exist?(filename)
+
   # JSON.parse(File.read(filename))
   people_data = JSON.parse(File.read(filename))
   people_data.map { |person| Person.new(person['name']) }
@@ -28,6 +30,7 @@ end
 
 def load_rentals_data(filename)
   return [] unless File.exist?(filename)
+
   # JSON.parse(File.read(filename))
   rentals_data = JSON.parse(File.read(filename))
   rentals_data.map { |rental| Rental.new(rental['date'], rental['book'], rental['person']) }
@@ -44,7 +47,6 @@ def save_at_exit(app)
 end
 
 def main(app)
-
   loop do
     display_menu
     print 'Enter your choice: '
@@ -54,7 +56,6 @@ def main(app)
   end
 
   at_exit { save_at_exit(app) }
-
 end
 
 # Invoking the main method
