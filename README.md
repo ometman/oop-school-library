@@ -152,7 +152,7 @@ You can deploy this project using:
 
 ## 👥 Author <a name="authors"></a>
 
-> Developed by: Omet Omeni (Ometman)
+> Developed by:
 
 ###  Omet Omeni (Ometman)
 - GitHub: [@ometman](https://github.com/ometman)
