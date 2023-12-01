@@ -26,7 +26,8 @@
     - [Run tests](#run-tests)
     - [Deployment](#deployment)
   - [👥 Author ](#-author-)
-    - [Authors](#authors)
+    - [Omet Omeni (Ometman)](#omet-omeni-ometman)
+    - [Kwamay](#kwamay)
   - [🔭 Future Features ](#-future-features-)
   - [🤝 Contributing ](#-contributing-)
   - [⭐️ Show your support ](#️-show-your-support-)
@@ -151,12 +152,17 @@ You can deploy this project using:
 
 ## 👥 Author <a name="authors"></a>
 
-> Developed by: Omet Omeni (Ometman)
+> Developed by:
 
-### Authors
+###  Omet Omeni (Ometman)
 - GitHub: [@ometman](https://github.com/ometman)
 - Twitter: [@twitterhandle](https://twitter.com/ometman)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/ometman/)
+
+### Kwamay
+- GitHub: [@ometman](https://github.com/kwamay)
+- Twitter: [@twitterhandle](https://twitter.com/kwamay)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/kwamay/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
